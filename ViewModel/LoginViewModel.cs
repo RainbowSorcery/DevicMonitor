@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using DevicMonitor.Common;
+using DevicMonitor.Model;
 
 namespace DevicMonitor.ViewModel
 {
@@ -12,6 +13,8 @@ namespace DevicMonitor.ViewModel
 
     {
         public CommandBase CloseWindowCommand {  get; set; }
+
+        public LoginModel LoginModel { get; set; }
 
         public LoginViewModel()
         {
@@ -29,6 +32,7 @@ namespace DevicMonitor.ViewModel
                 return true;
             });
 
+            this.LoginModel = new LoginModel();
         }
 
 
