@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevicMonitor"
+        xmlns:helper="clr-namespace:DevicMonitor.Helper" 
         mc:Ignorable="d"
         Name="window"
         ResizeMode="NoResize"
@@ -230,7 +231,7 @@
                 <TextBlock Text="lyra设备监控系统" FontSize="18" Background="Transparent" Foreground="Wheat" />
             </StackPanel>
 
-            <Grid Grid.Row="1" Margin="20 0 20 0">
+            <Grid Grid.Row="1" Margin="20 0 20 0" FocusManager.FocusedElement="{Binding ElementName=txtInputUsername}">
                 <Grid.RowDefinitions >
                     <RowDefinition />
                     <RowDefinition />
@@ -238,11 +239,23 @@
                     <RowDefinition />
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
-                <TextBox Height="40" Style="{DynamicResource UsernameInputStyle}" Grid.Row="0"  Text="{Binding LoginModel.Username}"/>
-                <PasswordBox Style="{DynamicResource PasswordInputStyle}" Height="40" Grid.Row="1" />
-                <TextBox Style="{DynamicResource CaptchaInputStyle}" Height="40" Grid.Row="2"  Text="{Binding LoginModel.Capatcha}"/>
-                <Button Height="40" Content="登     录" Grid.Row="3" Template="{StaticResource LoginButtonStyle}" FontSize="16" Foreground="White" />
-                <TextBlock Text="" Grid.Row="4" Foreground="Red"  />
+                <TextBox Height="40" FontSize="15" Foreground="Gray" TextAlignment="Left" VerticalContentAlignment="Center"  Style="{DynamicResource UsernameInputStyle}" Grid.Row="0"  Text="{Binding LoginModel.Username}" Name="txtInputUsername" TextChanged="txtInputUsername_TextChanged_1">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=window}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <PasswordBox FontSize="15"  Foreground="Gray" VerticalContentAlignment="Center"  helper:PasswordHelper.Password="{Binding LoginModel.Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Style="{DynamicResource PasswordInputStyle}" Height="40" Grid.Row="1" >
+                    <PasswordBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=window}" />
+                    </PasswordBox.InputBindings>
+                </PasswordBox>
+                <TextBox FontSize="15"  Foreground="Gray"  TextAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource CaptchaInputStyle}" Height="40" Grid.Row="2"  Text="{Binding LoginModel.Capatcha}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=window}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button CommandParameter="{Binding ElementName=window}" Command="{Binding LoginCommand}"  Height="40" Content="登     录" Grid.Row="3" Template="{StaticResource LoginButtonStyle}" FontSize="16" Foreground="White" />
+                <TextBlock Text="{Binding ErrorMsg}"  Grid.Row="4" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Top"  />
             </Grid>
 
             <Grid Grid.Row="2"  Margin="20 0 20 0">

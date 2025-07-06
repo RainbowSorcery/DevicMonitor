@@ -30,5 +30,15 @@ namespace DevicMonitor
                 this.DragMove();
             }
         }
+
+        private void txtInputUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtInputUsername_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
