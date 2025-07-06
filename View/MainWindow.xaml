@@ -249,7 +249,7 @@
                         <KeyBinding Key="Enter" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=window}" />
                     </PasswordBox.InputBindings>
                 </PasswordBox>
-                <TextBox FontSize="15"  Foreground="Gray"  TextAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource CaptchaInputStyle}" Height="40" Grid.Row="2"  Text="{Binding LoginModel.Capatcha}">
+                <TextBox FontSize="15"    Foreground="Gray"  TextAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource CaptchaInputStyle}" Height="40" Grid.Row="2"  Text="{Binding LoginModel.Capatcha}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=window}" />
                     </TextBox.InputBindings>
