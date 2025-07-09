@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevicMonitor.View"
         mc:Ignorable="d"
-        Title="HomeWindows" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="{x:Null}"
+        Title="首页"
+        Height="800" 
+        Width="1250
+">
+    <Border Background="White" CornerRadius="10">
+        <Border.Effect>
+            <DropShadowEffect Color="Gray" BlurRadius="5" ShadowDepth="0.3" Opacity="0.5"/>
+        </Border.Effect>
+    </Border>
 </Window>
