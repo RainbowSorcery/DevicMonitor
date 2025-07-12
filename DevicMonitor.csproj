@@ -28,9 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Fonts\iconfont.ttf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Assets\Fonts\iconfont.ttf" />
   </ItemGroup>
 
 </Project>

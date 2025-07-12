@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevicMonitor.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace DevicMonitor.View
         public HomeWindows()
         {
             InitializeComponent();
+            this.DataContext = new HomeViewModel();
         }
     }
 }

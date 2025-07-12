@@ -9,12 +9,159 @@
         AllowsTransparency="True"
         Background="{x:Null}"
         Title="首页"
+        Name="window"
         Height="800" 
         Width="1250
 ">
+    <Window.Resources>
+        <ResourceDictionary Source="/Assets/Styles/DefaultStyle.xaml" >
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <ControlTemplate x:Key="MenuButtonTemplate" TargetType="RadioButton" >
+                        <Border CornerRadius="5" Name="MenuBorder" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                            <ContentControl Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20 4" FontSize="13" />
+                        </Border>
+
+                        <ControlTemplate.Triggers >
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="MenuBorder" Property="Background" Value="#469EFD" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ResourceDictionary>
+
+                <ResourceDictionary>
+                    <Style x:Key="MenuButtonStyle" TargetType="RadioButton">
+                        <Setter Property="Margin" Value="10 0 0 0" />
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                </ResourceDictionary>
+
+                <ResourceDictionary>
+                    <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+                    <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+                    <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+                    <Style x:Key="SearchInputBoxStyle" TargetType="{x:Type TextBox}">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="AllowDrop" Value="true"/>
+                        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                    <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions >
+                                                <ColumnDefinition Width="25" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock  FontSize="15" Foreground="#2e89e3"  Text=" &#xe60d;" Grid.Column="0" FontFamily="../Assets/Fonts/#iconfont" HorizontalAlignment="Left" VerticalAlignment="Center"  />
+                                            <TextBlock Name="mt"  Text="请输入检索内容" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed" />
+                                            <ScrollViewer Grid.Column="1" x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsKeyboardFocused" Value="true">
+                                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                                        </Trigger>
+                                          <!--监听当前组件的text属性 如果属性为空则将mt所代表的组件中的属性设置为可用状态-->
+                                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Mode=Self}}" Value="">
+                                            <Setter TargetName="mt" Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                                    <Condition Property="IsSelectionActive" Value="false"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                            </MultiTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </Window.Resources>
     <Border Background="White" CornerRadius="10">
         <Border.Effect>
             <DropShadowEffect Color="Gray" BlurRadius="5" ShadowDepth="0.3" Opacity="0.5"/>
         </Border.Effect>
+
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border  Background="#007dfa" CornerRadius="5">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right"  >
+                    <Button Content="&#xe622;"  Style="{StaticResource WindowControllerButtonStyle}" Command="{Binding MinWindowCommand}" CommandParameter="{Binding ElementName=window}"/>
+                    <Button Content="&#xe621;"  Style="{StaticResource WindowControllerButtonStyle}"  CommandParameter="{Binding ElementName=window}" Command="{Binding MaxWindowCommand}" />
+                    <Button Content="&#xe612;"  Style="{StaticResource WindowControllerButtonStyle}" CommandParameter="{Binding ElementName=window}" Command="{Binding CloseWindowCommand}" />
+                </StackPanel>
+            </Border>
+
+            <Grid Margin="50, 40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <StackPanel Height="65" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Border Height="40" Width="40"  CornerRadius="50"  Margin="0 0 0 10" >
+                        <Border.Background>
+                            <ImageBrush ImageSource="https://pic1.zhimg.com/v2-88a2f8e82df8f0293b63812e6b0042a5_l.jpg" />
+                        </Border.Background>
+                    </Border>
+
+                    <StackPanel Margin="10 0 0 0">
+                        <TextBlock Text="lyra课程管理系统" FontSize="20" Foreground="White" />
+                        <TextBlock Text="lyra" FontSize="12" Foreground="#88dddddd"  />
+                    </StackPanel>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <TextBlock  Text="&#xe60f;" FontSize="20" Foreground="White" FontFamily="../Assets/Fonts/#iconfont" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Border  Height="30" Width="30"  CornerRadius="50" Margin="10 0 0 0" >
+                        <Border.Background >
+                            <ImageBrush ImageSource="https://i1.hdslb.com/bfs/face/f32add5ddb8aa5f8aa41dfcd54ae816395dcb4ce.jpg" />
+                        </Border.Background>
+                    </Border>
+
+                    <TextBlock Text="Lyra"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                </StackPanel>
+
+                <StackPanel  Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left"  >
+                    <RadioButton IsChecked="True" Template="{StaticResource MenuButtonTemplate}" Style="{StaticResource MenuButtonStyle}"   Content="首页" />
+                    <RadioButton  Template="{StaticResource MenuButtonTemplate}" Style="{StaticResource MenuButtonStyle}"   Content="关于我们" />
+                    <RadioButton  Template="{StaticResource MenuButtonTemplate}" Style="{StaticResource MenuButtonStyle}"   Content="课程中心" />
+                    <RadioButton  Template="{StaticResource MenuButtonTemplate}" Style="{StaticResource MenuButtonStyle}"   Content="诚聘英才" />
+                    <RadioButton  Template="{StaticResource MenuButtonTemplate}" Style="{StaticResource MenuButtonStyle}"   Content="个人中心" />
+                </StackPanel>
+                <TextBox Foreground="White" TextAlignment="Left" VerticalContentAlignment="Center"  VerticalAlignment="Center" Style="{DynamicResource SearchInputBoxStyle}"  Background="#0065D3"  Grid.Row="1"  HorizontalAlignment="Right" Width="250" Height="30" />
+                <ContentControl Grid.Column="2"  />
+            </Grid>
+        </Grid>
     </Border>
 </Window>

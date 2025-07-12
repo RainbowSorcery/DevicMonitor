@@ -36,10 +36,13 @@ namespace DevicMonitor.ViewModel
 
         public LoginViewModel()
         {
+            this.LoginModel.Username = "lyra";
+            this.LoginModel.Password = "admin123456";
+            this.LoginModel.Capatcha= "3n3d";
+
             this.CloseWindowCommand.DoExecute = new Action<Object>((obj) =>
             {
                 (obj as Window).Close();
-
             });
 
             this.CloseWindowCommand.canDoExecute = new Func<object, bool>((obj) =>
