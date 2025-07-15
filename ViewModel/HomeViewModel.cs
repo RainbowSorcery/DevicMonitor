@@ -1,4 +1,5 @@
 ﻿using DevicMonitor.Common;
+using DevicMonitor.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Windows;
 
 namespace DevicMonitor.ViewModel
 {
-    class HomeViewModel
+    class HomeViewModel : NotifyBase
     {
         public CommandBase CloseWindowCommand {  get; set; } = new CommandBase();
 
@@ -16,9 +17,34 @@ namespace DevicMonitor.ViewModel
 
         public CommandBase MinWindowCommand { get; set; } = new CommandBase();
 
+        public UserModel UserInfo { get; set; };
+
+        public CommandBase NavCommand { get; set; };
+
+
+        private string _search;
+
+        public string Search
+        {
+            get { return _search; }
+            set { _search = value; this.DoNotify(); }
+        }
+
+        private FrameworkElement _navEelement;
+
+        public FrameworkElement NavElemnt
+        {
+            get { return _navEelement; }
+            set { _navEelement = value; this.DoNotify(); }
+        }
+
+
 
         public HomeViewModel()
         {
+            this.UserInfo = GlobalValues.CurrentUser;
+
+
             this.CloseWindowCommand.canDoExecute = new Func<Object, bool>((obj) =>
             {
                 return true; // 可以执行关闭窗口的操作
@@ -64,7 +90,25 @@ namespace DevicMonitor.ViewModel
                 }
             }); 
 
+
+            this.NavCommand = new CommandBase();
+
+            this.NavCommand.canDoExecute = new Func<Object, bool>((obj) =>
+            {
+                return true; // 可以执行导航操作
+            }); 
+
+            this.NavCommand.DoExecute = new Action<Object>(DoNavChanged);
+
+
         }
 
+
+        public void DoNavChanged(Object o)
+        {
+
+
+
+        }
     }
 }

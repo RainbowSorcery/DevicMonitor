@@ -149,7 +149,7 @@
                         </Border.Background>
                     </Border>
 
-                    <TextBlock Text="Lyra"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                    <TextBlock Text="{Binding UserInfo.UserName}"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0 0 0"/>
                 </StackPanel>
 
                 <StackPanel  Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left"  >
